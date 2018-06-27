@@ -16,5 +16,6 @@ namespace DeviceManager.Models
         public double GPSPosition_X { get; set; }
         public double GPSPosition_Y { get; set; }
         public int? Id_User { get; set; }
+        public string MacAddress { get; set; }
     }
 }

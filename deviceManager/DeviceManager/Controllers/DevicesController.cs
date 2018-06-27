@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace DeviceManager.Controllers
 {
-    public class ValuesController : ApiController
+    public class DevicesController : ApiController
     {
         // GET api/values
         public List<Device> Get()
@@ -30,14 +30,6 @@ namespace DeviceManager.Controllers
         {
             var ctlr = new SimationDeviceController();
             var device = ctlr.GetDevice();
-            //var r = new Random();
-            //var device = new Device
-            //{
-            //    Id_Device = id,
-            //    Date = DateTime.Now,
-            //    Name = "Light sensor",
-            //    Value = r.Next(0, 100).ToString()
-            //};
             return device;
         }
 
