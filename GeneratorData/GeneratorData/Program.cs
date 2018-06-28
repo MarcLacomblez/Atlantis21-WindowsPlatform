@@ -17,7 +17,7 @@ namespace GeneratorData
             var r = new Random();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost/DeviceManager");
+                client.BaseAddress = new Uri("http://localhost");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -146,7 +146,7 @@ namespace GeneratorData
 
                     Console.WriteLine("POST");
                     HttpResponseMessage response;
-                    response = client.PostAsJsonAsync("api/Values", device1).Result;
+                    response = client.PostAsJsonAsync("DeviceManager/api/Devices", device1).Result;
                     Console.WriteLine(response);
                     Thread.Sleep(1000);
                 }

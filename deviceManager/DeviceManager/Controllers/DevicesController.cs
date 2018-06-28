@@ -24,9 +24,9 @@ namespace DeviceManager.Controllers
                 var device = ctlr.GetDevice();
                 listDevice.Add(device);
             }
-
+            /*
             BddConnector bddconnector = new BddConnector();
-            bddconnector.myConnection(listDevice.ToString());
+            bddconnector.myConnection(listDevice.ToString());*/
 
             return listDevice;
         }
@@ -42,9 +42,8 @@ namespace DeviceManager.Controllers
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Device value)
         {
-           
 
         }
 

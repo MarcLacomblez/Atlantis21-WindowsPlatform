@@ -15,7 +15,7 @@ namespace ConsoleApp1
     class Program
     {
 
-        public BsonDocument[] strAll;
+
         static void Main(string[] args)
         {
 
@@ -37,15 +37,16 @@ namespace ConsoleApp1
             };
 
 
-            var filter = "{Id_Device : '5'}";
+           
 
             collect.InsertOneAsync(documnt);
 
-            
-            collect.Find(filter).ForEachAsync(document => Console.WriteLine(document));
+            /*var filter = "{Id_Device : '5'}";
+        
+            collect.Find(filter).ForEachAsync(document => Console.WriteLine(document));*/
 
-            //var documents = collect.Find(new BsonDocument()).ToList();
-            /*double[] myTab = new double[documents.Count];
+            var documents = collect.Find(new BsonDocument()).ToList();
+            double[] myTab = new double[documents.Count];
 
             for (int i = 0; i < documents.Count; i++)
             {
@@ -57,13 +58,13 @@ namespace ConsoleApp1
               
 
                 myTab[i] = data.Value;
-            }*/
+            }
 
 
             Service1Client client = new Service1Client();
 
 
-            //Console.WriteLine(client.avg(myTab));
+            Console.WriteLine(client.avg(myTab));
 
             Console.WriteLine(client.sum(1, 2));
 
