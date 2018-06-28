@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/WcfServiceLibrary1" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDataUsingDataContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDataUsingDataContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_sum_InputMessage">
+    <wsdl:part name="parameters" element="tns:sum" />
+  </wsdl:message>
+  <wsdl:message name="IService1_sum_OutputMessage">
+    <wsdl:part name="parameters" element="tns:sumResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_substract_InputMessage">
+    <wsdl:part name="parameters" element="tns:substract" />
+  </wsdl:message>
+  <wsdl:message name="IService1_substract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:substractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_multiply_InputMessage">
+    <wsdl:part name="parameters" element="tns:multiply" />
+  </wsdl:message>
+  <wsdl:message name="IService1_multiply_OutputMessage">
+    <wsdl:part name="parameters" element="tns:multiplyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_divide_InputMessage">
+    <wsdl:part name="parameters" element="tns:divide" />
+  </wsdl:message>
+  <wsdl:message name="IService1_divide_OutputMessage">
+    <wsdl:part name="parameters" element="tns:divideResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_totalsum_InputMessage">
+    <wsdl:part name="parameters" element="tns:totalsum" />
+  </wsdl:message>
+  <wsdl:message name="IService1_totalsum_OutputMessage">
+    <wsdl:part name="parameters" element="tns:totalsumResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_avg_InputMessage">
+    <wsdl:part name="parameters" element="tns:avg" />
+  </wsdl:message>
+  <wsdl:message name="IService1_avg_OutputMessage">
+    <wsdl:part name="parameters" element="tns:avgResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataResponse" message="tns:IService1_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContract" message="tns:IService1_GetDataUsingDataContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataUsingDataContractResponse" message="tns:IService1_GetDataUsingDataContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="sum">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/sum" message="tns:IService1_sum_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/sumResponse" message="tns:IService1_sum_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="substract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/substract" message="tns:IService1_substract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/substractResponse" message="tns:IService1_substract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="multiply">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/multiply" message="tns:IService1_multiply_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/multiplyResponse" message="tns:IService1_multiply_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="divide">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/divide" message="tns:IService1_divide_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/divideResponse" message="tns:IService1_divide_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="totalsum">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/totalsum" message="tns:IService1_totalsum_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/totalsumResponse" message="tns:IService1_totalsum_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="avg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/avg" message="tns:IService1_avg_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/avgResponse" message="tns:IService1_avg_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sum">
+      <soap:operation soapAction="http://tempuri.org/IService1/sum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="substract">
+      <soap:operation soapAction="http://tempuri.org/IService1/substract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multiply">
+      <soap:operation soapAction="http://tempuri.org/IService1/multiply" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="divide">
+      <soap:operation soapAction="http://tempuri.org/IService1/divide" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="totalsum">
+      <soap:operation soapAction="http://tempuri.org/IService1/totalsum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="avg">
+      <soap:operation soapAction="http://tempuri.org/IService1/avg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
