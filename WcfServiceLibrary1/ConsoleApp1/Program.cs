@@ -7,11 +7,14 @@ using ConsoleApp1.ServiceReference1;
 
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Bson.IO;
+using Newtonsoft.Json.Linq;
 
 namespace ConsoleApp1
 {
     class Program
     {
+
         public BsonDocument[] strAll;
         static void Main(string[] args)
         {
@@ -22,7 +25,7 @@ namespace ConsoleApp1
 
             var documnt = new BsonDocument
             {
-                {"Id_Device", 1 },
+                {"Id_Device", "5" },
                 {"name", "devicelight"},
                 {"date", "01/01/01"},
                 {"Value", "23"},
@@ -31,23 +34,38 @@ namespace ConsoleApp1
                 {"GPSPosition_Y", "01.55.42"},
                 {"Id_User", "1"},
                 {"MacAddress", "1"},
-
-
             };
 
+
+            var filter = "{Id_Device : '5'}";
+
             collect.InsertOneAsync(documnt);
-            
-            //var str = (BsonDocument)null;
-            //BsonDocument[] str2;
-            collect.Find(new BsonDocument()).ForEachAsync(X => Console.WriteLine(X));
 
             
+            collect.Find(filter).ForEachAsync(document => Console.WriteLine(document));
+
+            //var documents = collect.Find(new BsonDocument()).ToList();
+            /*double[] myTab = new double[documents.Count];
+
+            for (int i = 0; i < documents.Count; i++)
+            {
+               
+
+                var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
+
+                dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
+              
+
+                myTab[i] = data.Value;
+            }*/
+
 
             Service1Client client = new Service1Client();
 
-            Console.WriteLine("-----------------");
+
+            //Console.WriteLine(client.avg(myTab));
+
             Console.WriteLine(client.sum(1, 2));
-            //client.avg();
 
             Console.ReadKey();
         }

@@ -30,17 +30,8 @@ namespace WcfServiceLibrary1
 
         double IService1.avg(double[] num)
         {
-            /* int total = 0;
-             int result = 0;
 
-             for (int i = 0; i < num.Length; i++)
-             {
-                 total += num[i];
-             }
-
-             result = total / num.Length;*/
             double result = num.Average();
-            Console.WriteLine(result);
             return result;
         }
 
@@ -62,6 +53,18 @@ namespace WcfServiceLibrary1
         {
             throw new NotImplementedException();
         }
+
+        Tuple<string, int> IService1.max(double[] num)
+        {
+            throw new NotImplementedException();
+        }
+
+        /* Tuple<string, int> IService1.max(double[] num)
+         {
+             double myMaxValue = num.Max();
+
+             return myMaxValue;
+         }*/
 
         int IService1.multiply(int num1, int num2)
         {

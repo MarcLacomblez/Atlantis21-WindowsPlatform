@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+
+
 namespace DeviceManager.Controllers
 {
     public class DevicesController : ApiController
@@ -22,6 +24,10 @@ namespace DeviceManager.Controllers
                 var device = ctlr.GetDevice();
                 listDevice.Add(device);
             }
+
+            BddConnector bddconnector = new BddConnector();
+            bddconnector.myConnection(listDevice.ToString());
+
             return listDevice;
         }
 
@@ -30,12 +36,16 @@ namespace DeviceManager.Controllers
         {
             var ctlr = new SimationDeviceController();
             var device = ctlr.GetDevice();
+
+
             return device;
         }
 
         // POST api/values
         public void Post([FromBody]string value)
         {
+           
+
         }
 
         // PUT api/values/5

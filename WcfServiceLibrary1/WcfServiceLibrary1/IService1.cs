@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
+
 namespace WcfServiceLibrary1
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
@@ -36,6 +37,12 @@ namespace WcfServiceLibrary1
 
         [OperationContract]
         double avg(double[] num);
+
+        [OperationContract]
+        Tuple<string, int> max(double[] num);
+
+       /* [OperationContract]
+        Tuple<string, int> max(List<BsonDocument> num);*/
 
 
     }
