@@ -6,6 +6,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+using MongoDB.Driver;
+using MongoDB.Bson;
+//using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
+using Newtonsoft.Json;
+
+
 
 
 namespace DeviceManager.Controllers
@@ -15,18 +22,15 @@ namespace DeviceManager.Controllers
         // GET api/values
         public List<Device> Get()
         {
-            var ctlr = new SimationDeviceController();
-            var r = new Random();
-            var listDevice = new List<Device>();
-            var nbValue = r.Next(1, 20);
-            for (var i = 0; i <= nbValue; i++)
-            {
-                var device = ctlr.GetDevice();
-                listDevice.Add(device);
-            }
-            /*
-            BddConnector bddconnector = new BddConnector();
-            bddconnector.myConnection(listDevice.ToString());*/
+             var ctlr = new SimationDeviceController();
+             var r = new Random();
+             var listDevice = new List<Device>();
+             var nbValue = r.Next(1, 20);
+             for (var i = 0; i <= nbValue; i++)
+             {
+                 var device = ctlr.GetDevice();
+                 listDevice.Add(device);
+             }
 
             return listDevice;
         }
@@ -42,8 +46,17 @@ namespace DeviceManager.Controllers
         }
 
         // POST api/values
-        public void Post([FromBody]Device value)
+        public void Post(Device device)
         {
+
+            string output = JsonConvert.SerializeObject(device);
+
+            var bdd = new MongoClient("mongodb://localhost:27017");
+            var database = bdd.GetDatabase("DBR");
+            var collect = database.GetCollection<BsonDocument>("device");
+
+            BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
+            collect.InsertOneAsync(document);
 
         }
 
