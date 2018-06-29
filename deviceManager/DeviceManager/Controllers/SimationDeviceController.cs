@@ -1,4 +1,4 @@
-﻿using DeviceManager.Models;
+﻿/*using DeviceManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace DeviceManager.Controllers
 {
     public class SimationDeviceController : Controller
     {
-        // GET: SimationDevice
+        GET: SimationDevice
         public ActionResult Index()
         {
             return View();
@@ -100,4 +100,4 @@ namespace DeviceManager.Controllers
             return minValue + (next * (maxValue - minValue));
         }
     }
-}
+}*/

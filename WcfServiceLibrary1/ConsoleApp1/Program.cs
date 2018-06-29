@@ -18,14 +18,14 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-
+            /*
             var bdd = new MongoClient("mongodb://localhost:27017");
             var database = bdd.GetDatabase("DBR");
             var collect = database.GetCollection<BsonDocument>("device");
 
             var documnt = new BsonDocument
             {
-                {"Id_Device", "5" },
+                {"Id_Device", 5 },
                 {"name", "devicelight"},
                 {"date", "01/01/01"},
                 {"Value", "23"},
@@ -34,16 +34,16 @@ namespace ConsoleApp1
                 {"GPSPosition_Y", "01.55.42"},
                 {"Id_User", "1"},
                 {"MacAddress", "1"},
-            };
+            };*/
 
-
-           
+            /*
+      
 
             collect.InsertOneAsync(documnt);
 
-            /*var filter = "{Id_Device : '5'}";
+            //var filter = "{Id_Device : '5'}";
         
-            collect.Find(filter).ForEachAsync(document => Console.WriteLine(document));*/
+            //collect.Find(filter).ForEachAsync(document => Console.WriteLine(document));
 
             List<dynamic> dataAll = new List<dynamic>();
             var documents = collect.Find(new BsonDocument()).ToList();
@@ -62,15 +62,18 @@ namespace ConsoleApp1
 
                 //myTab[i] = data.Value;
             }
-
+            */
 
 
             Service1Client client = new Service1Client();
 
+            // Console.WriteLine(client.avg(myTab));
 
-           // Console.WriteLine(client.avg(myTab));
+            Console.WriteLine(client.avg());
 
-            //Console.WriteLine(client.sum(1, 2));
+
+
+
 
             Console.ReadKey();
         }

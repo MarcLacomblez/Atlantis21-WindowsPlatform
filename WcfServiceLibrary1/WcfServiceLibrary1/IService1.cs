@@ -18,31 +18,49 @@ namespace WcfServiceLibrary1
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
-        // TODO: Add your service operations here
+        // Base Operation
 
         [OperationContract]
         int sum(int num1, int num2);
-
         [OperationContract]
         int substract(int num1, int num2);
-
         [OperationContract]
         int multiply(int num1, int num2);
-
         [OperationContract]
         int divide(int num1, int num2);
+
+        //B.I calculator
 
         [OperationContract]
         int totalsum(int[] num);
 
-        [OperationContract]
-        double avg(double[] num);
 
         [OperationContract]
-        Tuple<string, int> max(double[] num);
+        //double avg(string dateMode, string date);
+        double avg();
+        /*
+        [OperationContract]
+        double avg(string dateMode, string date, string deviceName);*/
 
-       /* [OperationContract]
-        Tuple<string, int> max(List<BsonDocument> num);*/
+
+        /*
+        [OperationContract]
+        string DeviceMax(string dateMode, string date, string deviceName);
+
+        [OperationContract]
+        double ValueMax(string dateMode, string date, string deviceName);
+
+        [OperationContract]
+        string DeviceMax(string dateMode, string date);
+
+        [OperationContract]
+        double ValueMax(string dateMode, string date);*/
+
+
+
+
+        /* [OperationContract]
+         Tuple<string, int> max(List<BsonDocument> num);*/
 
 
     }

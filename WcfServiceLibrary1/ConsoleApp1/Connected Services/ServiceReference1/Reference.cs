@@ -121,10 +121,10 @@ namespace ConsoleApp1.ServiceReference1 {
         System.Threading.Tasks.Task<int> totalsumAsync(int[] num);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/avg", ReplyAction="http://tempuri.org/IService1/avgResponse")]
-        double avg(double[] num);
+        double avg();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/avg", ReplyAction="http://tempuri.org/IService1/avgResponse")]
-        System.Threading.Tasks.Task<double> avgAsync(double[] num);
+        System.Threading.Tasks.Task<double> avgAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -210,12 +210,12 @@ namespace ConsoleApp1.ServiceReference1 {
             return base.Channel.totalsumAsync(num);
         }
         
-        public double avg(double[] num) {
-            return base.Channel.avg(num);
+        public double avg() {
+            return base.Channel.avg();
         }
         
-        public System.Threading.Tasks.Task<double> avgAsync(double[] num) {
-            return base.Channel.avgAsync(num);
+        public System.Threading.Tasks.Task<double> avgAsync() {
+            return base.Channel.avgAsync();
         }
     }
 }

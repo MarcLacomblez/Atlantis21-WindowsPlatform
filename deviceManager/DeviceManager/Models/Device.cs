@@ -24,7 +24,7 @@ namespace DeviceManager.Models
         public DateTime Date { get; set; }
 
         [BsonElement("Value")]
-        public string Value { get; set; }
+        public double Value { get; set; }
 
         [BsonElement("NumberValue")]
         public int? NumberValue { get; set; }
