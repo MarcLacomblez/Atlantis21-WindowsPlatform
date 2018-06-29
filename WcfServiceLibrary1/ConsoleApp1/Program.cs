@@ -45,7 +45,9 @@ namespace ConsoleApp1
         
             collect.Find(filter).ForEachAsync(document => Console.WriteLine(document));*/
 
+            List<dynamic> dataAll = new List<dynamic>();
             var documents = collect.Find(new BsonDocument()).ToList();
+
             double[] myTab = new double[documents.Count];
 
             for (int i = 0; i < documents.Count; i++)
@@ -55,18 +57,20 @@ namespace ConsoleApp1
                 var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
 
                 dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
-              
 
-                myTab[i] = data.Value;
+                dataAll[i] = data;
+
+                //myTab[i] = data.Value;
             }
+
 
 
             Service1Client client = new Service1Client();
 
 
-            Console.WriteLine(client.avg(myTab));
+           // Console.WriteLine(client.avg(myTab));
 
-            Console.WriteLine(client.sum(1, 2));
+            //Console.WriteLine(client.sum(1, 2));
 
             Console.ReadKey();
         }
