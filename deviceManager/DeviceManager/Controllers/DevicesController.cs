@@ -13,18 +13,41 @@ using MongoDB.Bson.Serialization;
 using Newtonsoft.Json;
 using MongoDB.Bson.IO;
 using Newtonsoft.Json.Linq;
+using System.Security.Authentication;
 
 namespace DeviceManager.Controllers
 {
     public class DevicesController : ApiController
     {
+
+        public int port = 10255;
+        public string host = "atlantis21device.documents.azure.com";
+
+        private string dbName = "DBR";
+        private string collectionName = "Device";
+
+
+        string userName = "atlantis21device";
+        string password = "xo7QcynXCpXZ9zCNWlGSF7eOp0AmcCfN8pbiJeJbGskTsdayFajff46gq4DPXh6kBen6da2jKkXoWkKekNFTng==";
+
         // GET api/values
         public List<dynamic> Get()
         {
+            MongoClientSettings settings = new MongoClientSettings();
+            settings.Server = new MongoServerAddress(host, port);
+            settings.UseSsl = true;
+            settings.SslSettings = new SslSettings();
+            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
 
-            var bdd = new MongoClient("mongodb://localhost:27017");
-            var database = bdd.GetDatabase("DBR");
-            var collect = database.GetCollection<BsonDocument>("device");
+            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
+            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+
+            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
+
+            MongoClient client = new MongoClient(settings);
+
+            var database = client.GetDatabase(dbName);
+            var collect = database.GetCollection<BsonDocument>(collectionName);
 
             var documents = collect.Find(new BsonDocument()).ToList();
 
@@ -44,9 +67,22 @@ namespace DeviceManager.Controllers
         // GET api/values/5
         public List<dynamic> Get(int id)
         {
-            var bdd = new MongoClient("mongodb://localhost:27017");
-            var database = bdd.GetDatabase("DBR");
-            var collect = database.GetCollection<BsonDocument>("device");
+            MongoClientSettings settings = new MongoClientSettings();
+            settings.Server = new MongoServerAddress(host, port);
+            settings.UseSsl = true;
+            settings.SslSettings = new SslSettings();
+            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+
+            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
+            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+
+            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
+
+            MongoClient client = new MongoClient(settings);
+
+
+            var database = client.GetDatabase(dbName);
+            var collect = database.GetCollection<BsonDocument>(collectionName);
 
             var filter = new BsonDocument("Id_Device", id);
             var documents = collect.Find(filter).ToList();
@@ -87,9 +123,29 @@ namespace DeviceManager.Controllers
         public void Post(Device device)
         {
 
-            var bdd = new MongoClient("mongodb://localhost:27017");
-            var database = bdd.GetDatabase("DBR");
-            var collect = database.GetCollection<BsonDocument>("device");
+            //string dbName = "globaldb";
+
+
+            MongoClientSettings settings = new MongoClientSettings();
+            settings.Server = new MongoServerAddress(host, port);
+            settings.UseSsl = true;
+            settings.SslSettings = new SslSettings();
+            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+
+            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
+            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+
+            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
+
+            MongoClient client = new MongoClient(settings);
+
+           
+
+            //var bdd = new MongoClient("mongodb://localhost:27017");
+
+
+            var database = client.GetDatabase(dbName);
+            var collect = database.GetCollection<BsonDocument>(collectionName);
 
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(device);
             BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
@@ -100,9 +156,21 @@ namespace DeviceManager.Controllers
         // PUT api/values/5
         public void Put(int id, Device device)
         {
-            var bdd = new MongoClient("mongodb://localhost:27017");
-            var database = bdd.GetDatabase("DBR");
-            var collect = database.GetCollection<BsonDocument>("device");
+            MongoClientSettings settings = new MongoClientSettings();
+            settings.Server = new MongoServerAddress(host, port);
+            settings.UseSsl = true;
+            settings.SslSettings = new SslSettings();
+            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+
+            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
+            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+
+            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
+
+            MongoClient client = new MongoClient(settings);
+
+            var database = client.GetDatabase(dbName);
+            var collect = database.GetCollection<BsonDocument>(collectionName);
 
             var filter = new BsonDocument("Id_Device", id);
             
