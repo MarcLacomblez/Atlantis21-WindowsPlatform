@@ -8,22 +8,42 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization;
-
+using System.Security.Authentication;
 
 namespace DeviceManager.Controllers
 {
     public class BddConnector
     {
-        public void myConnection(string myJson)
+
+        public int port = 10255;
+        public string host = "atlantis21device.documents.azure.com";
+
+        private string dbName = "DBR";
+        private string collectionName = "Device";
+
+
+        string userName = "atlantis21device";
+        string password = "xo7QcynXCpXZ9zCNWlGSF7eOp0AmcCfN8pbiJeJbGskTsdayFajff46gq4DPXh6kBen6da2jKkXoWkKekNFTng==";
+
+        public MongoClient myConnection()
         {
-            var bdd = new MongoClient("mongodb://localhost:27017");
-            var database = bdd.GetDatabase("DBR");
 
-            var documnt = BsonSerializer.Deserialize<BsonDocument>(myJson);
-            var collect = database.GetCollection<BsonDocument>("device");
 
-            collect.InsertOneAsync(documnt);
-            
+            MongoClientSettings settings = new MongoClientSettings();
+            settings.Server = new MongoServerAddress(host, port);
+            settings.UseSsl = true;
+            settings.SslSettings = new SslSettings();
+            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+
+            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
+            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+
+            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
+
+            MongoClient client = new MongoClient(settings);
+
+            return client;
+
         }
 
     }

@@ -14,9 +14,16 @@ namespace DeviceManager
             // Itinéraires de l'API Web
             config.MapHttpAttributeRoutes();
 
+           /* config.Routes.MapHttpRoute(
+    name: "ApiByName",
+    routeTemplate: "api/{controller}/{action}/{name}",
+    defaults: null,
+    constraints: new { name = @"^[a-z]+$" }
+);*/
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

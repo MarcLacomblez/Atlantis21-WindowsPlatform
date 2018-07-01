@@ -14,137 +14,101 @@ using Newtonsoft.Json;
 using MongoDB.Bson.IO;
 using Newtonsoft.Json.Linq;
 using System.Security.Authentication;
+using System.IO;
+using System.Text;
 
 namespace DeviceManager.Controllers
 {
     public class DevicesController : ApiController
     {
 
-        public int port = 10255;
-        public string host = "atlantis21device.documents.azure.com";
-
         private string dbName = "DBR";
         private string collectionName = "Device";
 
 
-        string userName = "atlantis21device";
-        string password = "xo7QcynXCpXZ9zCNWlGSF7eOp0AmcCfN8pbiJeJbGskTsdayFajff46gq4DPXh6kBen6da2jKkXoWkKekNFTng==";
-
         // GET api/values
-        public List<dynamic> Get()
+        public List<JObject> Get()
         {
-            MongoClientSettings settings = new MongoClientSettings();
-            settings.Server = new MongoServerAddress(host, port);
-            settings.UseSsl = true;
-            settings.SslSettings = new SslSettings();
-            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+            BddConnector bddConnector = new BddConnector();
 
-            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
-            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+            var myClient = bddConnector.myConnection();
 
-            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
-
-            MongoClient client = new MongoClient(settings);
-
-            var database = client.GetDatabase(dbName);
+            var database = myClient.GetDatabase(dbName);
             var collect = database.GetCollection<BsonDocument>(collectionName);
 
-            var documents = collect.Find(new BsonDocument()).ToList();
+           var documents = collect.Find(new BsonDocument()).ToList();
 
-            List<dynamic> dataAll = new List<dynamic>();
+            
+            List<JObject> dataAll = new List<JObject>();
 
             for (int i = 0; i < documents.Count; i++)
             {
-
                 var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
-                dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
+                var data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
                 dataAll.Add(data);
             }
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(dataAll);
+
             return dataAll;
         }
 
 
         // GET api/values/5
-        public List<dynamic> Get(int id)
+        public List<JObject> Get(int id)
         {
-            MongoClientSettings settings = new MongoClientSettings();
-            settings.Server = new MongoServerAddress(host, port);
-            settings.UseSsl = true;
-            settings.SslSettings = new SslSettings();
-            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+            BddConnector bddConnector = new BddConnector();
 
-            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
-            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+            var myClient = bddConnector.myConnection();
 
-            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
-
-            MongoClient client = new MongoClient(settings);
-
-
-            var database = client.GetDatabase(dbName);
+            var database = myClient.GetDatabase(dbName);
             var collect = database.GetCollection<BsonDocument>(collectionName);
 
             var filter = new BsonDocument("Id_Device", id);
             var documents = collect.Find(filter).ToList();
 
-            List<dynamic> dataAll = new List<dynamic>();
+            List<JObject> dataAll = new List<JObject>();
 
             for (int i = 0; i < documents.Count; i++)
             {
                 var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
-                dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
+                var data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
                 dataAll.Add(data);
             }
             return dataAll;
         }
-        /*
-        public List<dynamic> GetbyName(string name)
+
+        [ActionName("name")]
+        public List<JObject> Get(string name)
         {
-            var bdd = new MongoClient("mongodb://localhost:27017");
-            var database = bdd.GetDatabase("DBR");
-            var collect = database.GetCollection<BsonDocument>("device");
+            BddConnector bddConnector = new BddConnector();
+
+            var myClient = bddConnector.myConnection();
+
+            var database = myClient.GetDatabase(dbName);
+            var collect = database.GetCollection<BsonDocument>(collectionName);
 
             var filter = new BsonDocument("Name", name);
             var documents = collect.Find(filter).ToList();
 
-            List<dynamic> dataAll = new List<dynamic>();
-            double[] myTab = new double[documents.Count];
+            List<JObject> dataAll = new List<JObject>();
 
             for (int i = 0; i < documents.Count; i++)
             {
                 var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
-                dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
+                var data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
                 dataAll.Add(data);
             }
             return dataAll;
-        }*/
+        }
 
         // POST api/values
         public void Post(Device device)
         {
+            BddConnector bddConnector = new BddConnector();
 
-            //string dbName = "globaldb";
+            var myClient = bddConnector.myConnection();
 
-
-            MongoClientSettings settings = new MongoClientSettings();
-            settings.Server = new MongoServerAddress(host, port);
-            settings.UseSsl = true;
-            settings.SslSettings = new SslSettings();
-            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
-
-            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
-            MongoIdentityEvidence evidence = new PasswordEvidence(password);
-
-            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
-
-            MongoClient client = new MongoClient(settings);
-
-           
-
-            //var bdd = new MongoClient("mongodb://localhost:27017");
-
-
-            var database = client.GetDatabase(dbName);
+            var database = myClient.GetDatabase(dbName);
             var collect = database.GetCollection<BsonDocument>(collectionName);
 
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(device);
@@ -156,20 +120,11 @@ namespace DeviceManager.Controllers
         // PUT api/values/5
         public void Put(int id, Device device)
         {
-            MongoClientSettings settings = new MongoClientSettings();
-            settings.Server = new MongoServerAddress(host, port);
-            settings.UseSsl = true;
-            settings.SslSettings = new SslSettings();
-            settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
+            BddConnector bddConnector = new BddConnector();
 
-            MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
-            MongoIdentityEvidence evidence = new PasswordEvidence(password);
+            var myClient = bddConnector.myConnection();
 
-            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
-
-            MongoClient client = new MongoClient(settings);
-
-            var database = client.GetDatabase(dbName);
+            var database = myClient.GetDatabase(dbName);
             var collect = database.GetCollection<BsonDocument>(collectionName);
 
             var filter = new BsonDocument("Id_Device", id);
@@ -178,6 +133,42 @@ namespace DeviceManager.Controllers
             BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
 
             collect.ReplaceOne(filter, document);
+        }
+
+        [ActionName("Associate")]
+        public void Put(int id_device, int id_user)
+        {
+            BddConnector bddConnector = new BddConnector();
+
+            var myClient = bddConnector.myConnection();
+
+            var database = myClient.GetDatabase(dbName);
+            var collect = database.GetCollection<BsonDocument>(collectionName);
+
+            var filter = new BsonDocument("Id_Device", id_device);
+
+
+            var documents = collect.Find(filter).ToList();
+
+            foreach(var item in documents)
+            {
+
+                var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
+                dynamic data = JObject.Parse(item.ToJson(jsonWriterSettings));
+
+                data.Id_User = id_user;
+            
+
+                string output = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+
+                BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
+
+                collect.ReplaceOne(filter, document);
+
+            }
+            
+
+
         }
 
         // DELETE api/values/5

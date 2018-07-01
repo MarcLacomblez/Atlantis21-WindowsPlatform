@@ -12,13 +12,13 @@ namespace DeviceManager.Models
         public int Id_User { get; set; }
 
         [BsonElement("LastName")]
-        public string LastName { get; set; }
-
-        [BsonElement("FirstName")]
-        public string FirstName { get; set; }
+        public string Login { get; set; }
 
         [BsonElement("Email")]
         public string Email { get; set; }
+
+        [BsonElement("Password")]
+        public string Password { get; set; }
 
         [BsonElement("isAdmin")]
         public bool IsAdmin { get; set; }
@@ -26,7 +26,5 @@ namespace DeviceManager.Models
         [BsonElement("Date")]
         public DateTime Date { get; set; }
 
-        [BsonElement("Comment")]
-        public string Comment { get; set; }
     }
 }
