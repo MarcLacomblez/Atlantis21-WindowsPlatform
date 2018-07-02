@@ -17,7 +17,7 @@ namespace GeneratorData
             var r = new Random();
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost");
+                client.BaseAddress = new Uri("http://atlantis21.azurewebsites.net");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -31,7 +31,7 @@ namespace GeneratorData
                         GPSPosition_X = 1.091451,
                         GPSPosition_Y = 49.477107,
                         Name = "Temperature sensor",
-                        Value = (RandomNumberBetween(0, 31)).ToString()
+                        Value = RandomNumberBetween(0, 31)
                     };
                     listDevice.Add(device1);
 
@@ -48,25 +48,25 @@ namespace GeneratorData
                     switch (typeLight)
                     {
                         case 0:
-                            device2.Value = "0.5";
+                            device2.Value = 0.5;
                             break;
                         case 1:
-                            device2.Value = r.Next(20, 70).ToString();
+                            device2.Value = r.Next(20, 70);
                             break;
                         case 2:
-                            device2.Value = r.Next(100, 200).ToString();
+                            device2.Value = r.Next(100, 200);
                             break;
                         case 3:
-                            device2.Value = r.Next(200, 400).ToString();
+                            device2.Value = r.Next(200, 400);
                             break;
                         case 4:
-                            device2.Value = r.Next(200, 3000).ToString();
+                            device2.Value = r.Next(200, 3000);
                             break;
                         case 5:
-                            device2.Value = r.Next(500, 25000).ToString();
+                            device2.Value = r.Next(500, 25000);
                             break;
                         case 6:
-                            device2.Value = r.Next(50000, 100000).ToString();
+                            device2.Value = r.Next(50000, 100000);
                             break;
                     }
                     listDevice.Add(device2);
@@ -79,7 +79,7 @@ namespace GeneratorData
                         GPSPosition_X = 1.091451,
                         GPSPosition_Y = 49.477107,
                         Name = "Atmospheric pressure sensor",
-                        Value = (RandomNumberBetween(990, 1040)).ToString()
+                        Value = RandomNumberBetween(990, 1040)
                     };
                     listDevice.Add(device3);
 
@@ -91,7 +91,7 @@ namespace GeneratorData
                         GPSPosition_X = 1.091451,
                         GPSPosition_Y = 49.477107,
                         Name = "Humidity sensor",
-                        Value = (RandomNumberBetween(50, 100)).ToString()
+                        Value = RandomNumberBetween(50, 100)
                     };
                     listDevice.Add(device4);
 
@@ -103,7 +103,7 @@ namespace GeneratorData
                         GPSPosition_X = 1.091451,
                         GPSPosition_Y = 49.477107,
                         Name = "CO2 level sensor",
-                        Value = r.Next(400, 2000).ToString()
+                        Value = r.Next(400, 2000)
                     };
                     listDevice.Add(device5);
 
@@ -115,7 +115,7 @@ namespace GeneratorData
                         GPSPosition_X = 1.091451,
                         GPSPosition_Y = 49.477107,
                         Name = "Precipitation sensor",
-                        Value = r.Next(100, 300).ToString()
+                        Value = r.Next(100, 300)
                     };
                     listDevice.Add(device6);
 
@@ -127,7 +127,7 @@ namespace GeneratorData
                         GPSPosition_X = 1.091451,
                         GPSPosition_Y = 49.477107,
                         Name = "Sound level sensor",
-                        Value = r.Next(50, 95).ToString()
+                        Value = r.Next(50, 95)
                     };
                     listDevice.Add(device7);
 
@@ -139,14 +139,14 @@ namespace GeneratorData
                         GPSPosition_X = 1.091451,
                         GPSPosition_Y = 49.477107,
                         Name = "Presence sensor",
-                        Value = ((r.Next(0, 1) % 2) == 0).ToString()
+                        Value = r.Next(0, 2) % 2
                     };
                     listDevice.Add(device8);
-                    //Console.WriteLine(listDevice);
+                    Console.WriteLine(listDevice);
 
                     Console.WriteLine("POST");
                     HttpResponseMessage response;
-                    response = client.PostAsJsonAsync("DeviceManager/api/Devices", device1).Result;
+                    response = client.PostAsJsonAsync("api/Devices", listDevice).Result;
                     Console.WriteLine(response);
                     Thread.Sleep(1000);
                 }
@@ -168,7 +168,7 @@ namespace GeneratorData
         public string Name { get; set; }
         public bool ValueIsInt { get; set; }
         public DateTime Date { get; set; }
-        public string Value { get; set; }
+        public double Value { get; set; }
         public int? NumberValue { get; set; }
         public double GPSPosition_X { get; set; }
         public double GPSPosition_Y { get; set; }
