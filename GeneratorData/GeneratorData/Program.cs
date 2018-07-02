@@ -13,7 +13,6 @@ namespace GeneratorData
     {
         static void Main(string[] args)
         {
-            var listDevice = new List<Device>();
             var r = new Random();
             using (var client = new HttpClient())
             {
@@ -23,6 +22,7 @@ namespace GeneratorData
 
                 for (int i = 0; i < 1; i++)
                 {
+                    var watch = System.Diagnostics.Stopwatch.StartNew();
                     var device1 = new Device()
                     {
                         Id_Device = r.Next(0, 1000),
@@ -33,7 +33,9 @@ namespace GeneratorData
                         Name = "Temperature sensor",
                         Value = RandomNumberBetween(0, 31)
                     };
-                    listDevice.Add(device1);
+                    HttpResponseMessage response;
+                    response = client.PostAsJsonAsync("api/Devices", device1).Result;
+                    Console.WriteLine(response);
 
                     var device2 = new Device()
                     {
@@ -69,7 +71,8 @@ namespace GeneratorData
                             device2.Value = r.Next(50000, 100000);
                             break;
                     }
-                    listDevice.Add(device2);
+                    //response = client.PostAsJsonAsync("api/Devices", device2).Result;
+                    //Console.WriteLine(response);
 
                     var device3 = new Device()
                     {
@@ -81,7 +84,8 @@ namespace GeneratorData
                         Name = "Atmospheric pressure sensor",
                         Value = RandomNumberBetween(990, 1040)
                     };
-                    listDevice.Add(device3);
+                    //response = client.PostAsJsonAsync("api/Devices", device3).Result;
+                    //Console.WriteLine(response);
 
                     var device4 = new Device()
                     {
@@ -93,7 +97,8 @@ namespace GeneratorData
                         Name = "Humidity sensor",
                         Value = RandomNumberBetween(50, 100)
                     };
-                    listDevice.Add(device4);
+                    //response = client.PostAsJsonAsync("api/Devices", device4).Result;
+                    //Console.WriteLine(response);
 
                     var device5 = new Device()
                     {
@@ -105,7 +110,8 @@ namespace GeneratorData
                         Name = "CO2 level sensor",
                         Value = r.Next(400, 2000)
                     };
-                    listDevice.Add(device5);
+                    //response = client.PostAsJsonAsync("api/Devices", device5).Result;
+                    //Console.WriteLine(response);
 
                     var device6 = new Device()
                     {
@@ -117,7 +123,8 @@ namespace GeneratorData
                         Name = "Precipitation sensor",
                         Value = r.Next(100, 300)
                     };
-                    listDevice.Add(device6);
+                    //response = client.PostAsJsonAsync("api/Devices", device6).Result;
+                    //Console.WriteLine(response);
 
                     var device7 = new Device()
                     {
@@ -129,7 +136,8 @@ namespace GeneratorData
                         Name = "Sound level sensor",
                         Value = r.Next(50, 95)
                     };
-                    listDevice.Add(device7);
+                    //response = client.PostAsJsonAsync("api/Devices", device7).Result;
+                    //Console.WriteLine(response);
 
                     var device8 = new Device()
                     {
@@ -141,14 +149,13 @@ namespace GeneratorData
                         Name = "Presence sensor",
                         Value = r.Next(0, 2) % 2
                     };
-                    listDevice.Add(device8);
-                    Console.WriteLine(listDevice);
+                    //response = client.PostAsJsonAsync("api/Devices", device8).Result;
+                    //Console.WriteLine(response);
 
-                    Console.WriteLine("POST");
-                    HttpResponseMessage response;
-                    response = client.PostAsJsonAsync("api/Devices", listDevice).Result;
-                    Console.WriteLine(response);
-                    Thread.Sleep(1000);
+                    watch.Stop();
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    Console.WriteLine(elapsedMs);
+                    Thread.Sleep(10000 - Convert.ToInt32(elapsedMs));
                 }
             }
             Console.ReadLine();
