@@ -102,7 +102,7 @@ namespace DeviceManager.Controllers
         }
 
         // POST api/values
-        public void Post(List<Device> devices)
+        public void Post(Device devices)
         {
             BddConnector bddConnector = new BddConnector();
 
@@ -117,23 +117,6 @@ namespace DeviceManager.Controllers
 
         }
 
-        // PUT api/values/5
-        public void Put(int id, Device device)
-        {
-            BddConnector bddConnector = new BddConnector();
-
-            var myClient = bddConnector.myConnection();
-
-            var database = myClient.GetDatabase(dbName);
-            var collect = database.GetCollection<BsonDocument>(collectionName);
-
-            var filter = new BsonDocument("Id_Device", id);
-            
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(device);
-            BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
-
-            collect.ReplaceOne(filter, document);
-        }
 
         [ActionName("Associate")]
         public void Post(int id_device, int id_user)
@@ -170,6 +153,25 @@ namespace DeviceManager.Controllers
 
 
         }
+
+        // PUT api/values/5
+        public void Put(int id, Device device)
+        {
+            BddConnector bddConnector = new BddConnector();
+
+            var myClient = bddConnector.myConnection();
+
+            var database = myClient.GetDatabase(dbName);
+            var collect = database.GetCollection<BsonDocument>(collectionName);
+
+            var filter = new BsonDocument("Id_Device", id);
+
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(device);
+            BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
+
+            collect.ReplaceOne(filter, document);
+        }
+
 
         // DELETE api/values/5
         public void Delete(int id)
