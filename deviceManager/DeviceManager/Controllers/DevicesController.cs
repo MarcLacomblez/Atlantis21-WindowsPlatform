@@ -102,7 +102,7 @@ namespace DeviceManager.Controllers
         }
 
         // POST api/values
-        public void Post(Device device)
+        public void Post(List<Device> devices)
         {
             BddConnector bddConnector = new BddConnector();
 
@@ -111,7 +111,7 @@ namespace DeviceManager.Controllers
             var database = myClient.GetDatabase(dbName);
             var collect = database.GetCollection<BsonDocument>(collectionName);
 
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(device);
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(devices);
             BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
             collect.InsertOneAsync(document);
 
@@ -136,7 +136,7 @@ namespace DeviceManager.Controllers
         }
 
         [ActionName("Associate")]
-        public void Put(int id_device, int id_user)
+        public void Post(int id_device, int id_user)
         {
             BddConnector bddConnector = new BddConnector();
 
