@@ -152,8 +152,39 @@ namespace DeviceManager.Controllers
             return myresult;
         }
 
+        /*   [ActionName("Avg")]
+           public double GetAvg(string name_device, int id_device)
+           {
+               BddConnector bddConnector = new BddConnector();
+
+               var myClient = bddConnector.myConnection();
+               var database = myClient.GetDatabase(dbName);
+               var collect = database.GetCollection<BsonDocument>(collectionName);
+
+               var filter = new BsonDocument("Name", name_device);
+               var documents = collect.Find(filter).ToList();
+
+               double[] myTable = new double[documents.Count];
+
+               for (int i = 0; i < documents.Count; i++)
+               {
+                   var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
+                   dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
+
+                   if (data.Id_Device == id_device)
+                   {
+                       myTable[i] = data.Value;
+                   }
+
+               }
+
+               double myresult = myTable.Average();
+               return myresult;
+
+           }*/
+
         [ActionName("Avg")]
-        public double GetAvg(string name_device, int id_device)
+        public double GetAvg(int id_device)
         {
             BddConnector bddConnector = new BddConnector();
 
@@ -161,7 +192,7 @@ namespace DeviceManager.Controllers
             var database = myClient.GetDatabase(dbName);
             var collect = database.GetCollection<BsonDocument>(collectionName);
 
-            var filter = new BsonDocument("Name", name_device);
+            var filter = new BsonDocument("Id_Device", id_device);
             var documents = collect.Find(filter).ToList();
 
             double[] myTable = new double[documents.Count];
@@ -170,12 +201,7 @@ namespace DeviceManager.Controllers
             {
                 var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
                 dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
-
-                if (data.Id_Device == id_device)
-                {
-                    myTable[i] = data.Value;
-                }
-
+                myTable[i] = data.Value;
             }
 
             double myresult = myTable.Average();
@@ -183,8 +209,8 @@ namespace DeviceManager.Controllers
 
         }
 
-    // POST api/values
-    public void Post(Device devices)
+        // POST api/values
+        public void Post(Device devices)
         {
             BddConnector bddConnector = new BddConnector();
 
@@ -228,7 +254,7 @@ namespace DeviceManager.Controllers
 
                 BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
 
-                collect.ReplaceOne(filter, document);
+                collect.ReplaceOne(item, document);
 
             }
             
