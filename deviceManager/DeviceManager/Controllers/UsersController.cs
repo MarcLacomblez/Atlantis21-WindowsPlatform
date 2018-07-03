@@ -66,7 +66,6 @@ namespace DeviceManager.Controllers
                 dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
                 dataAll.Add(data);
             }
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(dataAll);
 
             return dataAll;
         }
