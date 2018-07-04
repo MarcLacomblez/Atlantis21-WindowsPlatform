@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using MongoDB.Bson.IO;
 using Newtonsoft.Json.Linq;
-using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization;using System.Security.Cryptography;
 
 namespace DeviceManager.Controllers
 {
@@ -101,8 +101,9 @@ namespace DeviceManager.Controllers
             var database = myClient.GetDatabase(dbName);
             var collect = database.GetCollection<BsonDocument>(collectionName);
 
-            var documents = collect.Find(new BsonDocument()).ToList();
+            //var documents = collect.Find(new BsonDocument()).ToList();
 
+            user.Password = Crypto.GenerateSHA512String(user.Password);
             string output = Newtonsoft.Json.JsonConvert.SerializeObject(user);
             BsonDocument document = BsonSerializer.Deserialize<BsonDocument>(output);
             collect.InsertOneAsync(document);
@@ -133,7 +134,7 @@ namespace DeviceManager.Controllers
                 var jsonWriterSettings = new JsonWriterSettings { OutputMode = JsonOutputMode.Strict }; // key part
                 dynamic data = JObject.Parse(documents[i].ToJson(jsonWriterSettings));
 
-                if (data.Password == password)
+                if (data.Password == Crypto.GenerateSHA512String(password))
                 {
                     message = "ok";
                 }

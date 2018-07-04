@@ -208,6 +208,8 @@
     <Compile Include="Controllers\BddConnector.cs" />
     <Compile Include="Controllers\Calculator.cs" />
     <Compile Include="Controllers\ConvertJson.cs" />
+    <Compile Include="Controllers\Crypto.cs" />
+    <Compile Include="Controllers\CalculatoController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SimationDeviceController.cs" />
